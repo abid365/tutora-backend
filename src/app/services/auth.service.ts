@@ -7,7 +7,7 @@ import db from "../../config/db.js";
 import { users } from "../../db/schema/user.schema.js";
 import { ApiError, Success } from "../dto/api-response.js";
 import { eq, or } from "drizzle-orm";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import "dotenv";
 import { auth } from "../../db/schema/auth.schema.js";
 
@@ -71,12 +71,16 @@ export const signInUser = async (data: LoginInput) => {
         return {
           success: success,
           access_token: accessToken,
+          refresh_token: refreshToken,
         };
       }
     } else {
       throw new ApiError("Invalid email or password", 409, null);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error("Sign in error:", error);
+    throw new ApiError("Authentication failed", 500, error);
+  }
 };
 
 export const registerUser = async (data: RegisterInput) => {
