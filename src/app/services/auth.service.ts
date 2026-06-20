@@ -67,7 +67,11 @@ export const signInUser = async (data: LoginInput) => {
         .returning();
 
       if (response.length > 0) {
-        return new Success("Logged in sucessfully", 201);
+        const success = new Success("Logged in successfully", 201);
+        return {
+          success: success,
+          access_token: accessToken,
+        };
       }
     } else {
       throw new ApiError("Invalid email or password", 409, null);
