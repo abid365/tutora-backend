@@ -2,25 +2,7 @@ import argon2 from "argon2";
 import type { RegisterInput } from "../validation-schema/auth.validation.js";
 import db from "../../config/db.js";
 import { users } from "../../db/schema/user.schema.js";
-
-class ApiError extends Error {
-  status: number;
-  error: any;
-  constructor(message: string, status: number, error: any) {
-    super(message);
-    this.status = status;
-    this.error = error;
-  }
-}
-
-class Success {
-  status: number;
-  message: string;
-  constructor(message: string, status: number) {
-    this.message = message;
-    this.status = status;
-  }
-}
+import { ApiError, Success } from "../dto/api-response.js";
 
 export const registerUser = async (data: RegisterInput) => {
   const { phone, email, password, name } = data;
@@ -37,10 +19,12 @@ export const registerUser = async (data: RegisterInput) => {
       })
       .returning();
 
+    console.log(response);
+
     if (response.length > 0) {
       return new Success("User registered successfully", 201);
     }
   } catch (error) {
-    throw new ApiError("Failed to register user", 499, error);
+    throw new ApiError("Failed to register user", 404, error);
   }
 };
