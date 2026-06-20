@@ -1,6 +1,8 @@
 import { randomUUID } from "crypto";
 import { sqliteTable, int, text, integer } from "drizzle-orm/sqlite-core";
 
+type UserRole = "tutor" | "student" | "guardian";
+
 export const users = sqliteTable("users", {
   id: text("id")
     .primaryKey()
@@ -13,4 +15,5 @@ export const users = sqliteTable("users", {
   phone: integer("phone", { mode: "number" }),
   password: text("password"),
   name: text("name"),
+  role: text("role").$type<UserRole>().notNull(),
 });

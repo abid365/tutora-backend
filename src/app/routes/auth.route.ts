@@ -7,10 +7,10 @@ import { ApiError } from "../dto/api-response.js";
 const router = express();
 
 router.post("/login", async (req: Request, res: Response) => {
-  const { phone, email, password } = req.body;
+  const { phone, email, password, role } = req.body;
 
   try {
-    const response = await signInUser({ email, password, phone });
+    const response = await signInUser({ email, password, phone, role });
 
     res.send(response);
   } catch (error) {
@@ -27,9 +27,9 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 router.post("/register", async (req: Request, res: Response) => {
-  const { phone, email, password, name } = req.body;
+  const { phone, email, password, name, role } = req.body;
   try {
-    const response = await registerUser({ phone, email, password, name });
+    const response = await registerUser({ phone, email, password, name, role });
     res.send(response);
   } catch (error) {
     if (error instanceof ApiError) {

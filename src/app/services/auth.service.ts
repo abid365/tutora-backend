@@ -14,7 +14,7 @@ import { auth } from "../../db/schema/auth.schema.js";
 const jwtSecret = process.env.JWT_SECRET_KEY;
 
 export const signInUser = async (data: LoginInput) => {
-  const { phone, email, password } = data;
+  const { phone, email, password, role } = data;
 
   const existingUser = await db
     .select()
@@ -33,6 +33,7 @@ export const signInUser = async (data: LoginInput) => {
         name: users.name,
         phone: users.phone,
         email: users.email,
+        role: users.role,
       })
       .from(users)
       .where(or(eq(users.email, email), eq(users.phone, phone)));
@@ -42,6 +43,7 @@ export const signInUser = async (data: LoginInput) => {
       email: userData[0]?.email,
       phone: userData[0]?.phone,
       name: userData[0]?.name,
+      role: userData[0]?.role,
     };
 
     const verified = await argon2.verify(userData[0].password!, password);
@@ -87,7 +89,7 @@ export const signInUser = async (data: LoginInput) => {
 };
 
 export const registerUser = async (data: RegisterInput) => {
-  const { phone, email, password, name } = data;
+  const { phone, email, password, name, role } = data;
   const hashedPassword = await argon2.hash(password);
   try {
     const existingUser = await db
@@ -108,6 +110,7 @@ export const registerUser = async (data: RegisterInput) => {
         email: email,
         phone: phone,
         password: hashedPassword,
+        role: role,
       })
       .returning();
 
