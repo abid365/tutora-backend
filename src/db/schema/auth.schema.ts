@@ -5,10 +5,10 @@ export const auth = sqliteTable("auth", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => randomUUID()),
-  user_id: integer("user_id")
+  user_id: text("user_id")
     .notNull()
     .references(() => users.id),
-  token: text("token").notNull().unique(),
+  access_token: text("access_token").notNull().unique(),
   created_at: integer("created_at", { mode: "timestamp" }).$defaultFn(
     () => new Date(),
   ),

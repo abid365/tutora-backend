@@ -8,6 +8,20 @@
       "when": 1781433289178,
       "tag": "0000_natural_human_fly",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1781955592300,
+      "tag": "0001_mushy_moira_mactaggert",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1781956091748,
+      "tag": "0002_foamy_machine_man",
+      "breakpoints": true
     }
   ]
 }
