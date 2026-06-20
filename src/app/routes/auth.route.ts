@@ -8,16 +8,22 @@ const router = express();
 
 router.post("/login", async (req: Request, res: Response) => {
   const { phone, email, password } = req.body;
+  try {
+  } catch (error) {}
 });
 
 router.post("/register", async (req: Request, res: Response) => {
-  console.log(req.body);
   const { phone, email, password, name } = req.body;
   try {
     const response = await registerUser({ phone, email, password, name });
     res.send(response);
   } catch (error) {
-    return res.send(error);
+    if (error instanceof ApiError) {
+      res.status(error.status).json({
+        error: error.message,
+        details: error.error,
+      });
+    }
   }
 });
 
