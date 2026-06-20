@@ -57,6 +57,9 @@ export const signInUser = async (data: LoginInput) => {
       });
       const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
+      // Invalidate existing tokens for this user (single session per user)
+      await db.delete(auth).where(eq(auth.user_id, userData[0].user_id!));
+
       const response = await db
         .insert(auth)
         .values({
