@@ -1,0 +1,20 @@
+CREATE TABLE `jobs` (
+	`id` text PRIMARY KEY NOT NULL,
+	`guardian_id` text NOT NULL,
+	`title` text NOT NULL,
+	`description` text NOT NULL,
+	`subject` text NOT NULL,
+	`level` text NOT NULL,
+	`location_type` text DEFAULT 'online' NOT NULL,
+	`location` text,
+	`rate_type` text DEFAULT 'hourly' NOT NULL,
+	`rate_amount` integer NOT NULL,
+	`currency` text DEFAULT 'USD' NOT NULL,
+	`schedule` text,
+	`sessions_per_week` integer,
+	`duration_minutes` integer,
+	`status` text DEFAULT 'open' NOT NULL,
+	`created_at` integer NOT NULL,
+	`updated_at` integer,
+	FOREIGN KEY (`guardian_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+);
