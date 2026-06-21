@@ -36,6 +36,13 @@
       "when": 1781980857600,
       "tag": "0004_thick_magma",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1781981548342,
+      "tag": "0005_nostalgic_shard",
+      "breakpoints": true
     }
   ]
 }
