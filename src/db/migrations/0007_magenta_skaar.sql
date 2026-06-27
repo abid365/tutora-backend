@@ -1,0 +1,1 @@
+ALTER TABLE `jobs` RENAME COLUMN "location_type" TO "teaching_type";
